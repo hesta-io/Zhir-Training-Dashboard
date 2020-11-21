@@ -32,7 +32,7 @@
 
         <% for (let batch of batches) { %>
           <div class="logs-container" id="logs-container-<%=batch.id%>" hidden>
-            <h4><%=batch.name=></h4>
+            <h4><%= batch.name %></h4>
             <pre style="background-color: #EBECE4; padding: 20px">
 <%= batch.logs %>
             </pre>
