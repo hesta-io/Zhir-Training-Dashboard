@@ -6,10 +6,54 @@
   <body>
     <% include ./partials/header %>
     <div class="container">
-      <div>
-        <h1>Welcome to <%= siteTitle %></h1>
-        <p class="lead">This is where content for "<%=title%>" lives</p>
-      </div>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Name</td>
+              <th scope="col">Fonts Completed</td>
+              <th scope="col">Current Font</td>
+              <th scope="col">Current Progress</td>
+              <th scope="col"></td>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% for (let batch of batches) { %>
+              <tr>
+                <td><%= batch.name %></td>
+                <td><%= batch.currentFontCount - 1 %></td>
+                <td><%= batch.currentFont %></td>
+                <td><%= batch.linesProcessed %> (<%= batch.progress.toFixed(1) %>%)</td>
+                <td><a href="#" class="btn btn-sm" onclick="showContainer(<%= batch.id %>)">Logs</a></td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+
+        <% for (let batch of batches) { %>
+          <div class="logs-container" id="logs-container-<%=batch.id%>" hidden>
+            <pre style="background-color: #EBECE4; padding: 20px">
+<%= batch.logs %>
+            </pre>
+          </div>
+        <% } %>
+        
+
     </div><!-- /.container -->
+
+    <script>
+      function showContainer(id) {
+        let current = getContainer(id);
+        for (let container of document.getElementsByClassName('logs-container')) {
+          container.setAttribute("hidden", "true");
+        }
+
+        current.removeAttribute("hidden");
+      }
+
+      function getContainer(id) {
+        return document.getElementById('logs-container-' + id);
+      }
+    </script>
   </body>
  </html>
