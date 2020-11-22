@@ -12,7 +12,7 @@
               <th scope="col">Name</td>
               <th scope="col">Fonts Completed</td>
               <th scope="col">Current Font</td>
-              <th scope="col">Current Progress</td>
+              <th scope="col" colspan="2">Current Progress</td>
               <th scope="col"></td>
             </tr>
           </thead>
@@ -23,7 +23,8 @@
                 <td><%= batch.name %></td>
                 <td><%= batch.currentFontCount - 1 %></td>
                 <td><%= batch.currentFont %></td>
-                <td><%= batch.linesProcessed %> (<%= batch.progress.toFixed(1) %>%)</td>
+                <td><%= batch.linesProcessed %></td>
+                <td><%= batch.progress.toFixed(1) %>%</td>
                 <td><a href="#" class="btn btn-sm" onclick="showContainer(<%= batch.id %>)">Logs</a></td>
               </tr>
             <% } %>
@@ -45,11 +46,15 @@
     <script>
       function showContainer(id) {
         let current = getContainer(id);
+        let isHidden = current.hasAttribute('hidden');
         for (let container of document.getElementsByClassName('logs-container')) {
           container.setAttribute("hidden", "true");
         }
 
-        current.removeAttribute("hidden");
+        if (isHidden)
+        {
+          current.removeAttribute("hidden");
+        }
       }
 
       function getContainer(id) {
