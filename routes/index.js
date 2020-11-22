@@ -19,6 +19,7 @@ router.get('/', async function(req, res, next) {
   for (let i = 0; i < batchesCount; i++) {
     let batch = { id: i, name: `Batch ${i + 1}` };
     batch.logs = await readLastLines.read(logsDir + '/' + `${i + 1}.log`, 50);
+    batch.logs = batch.logs.split('\n').reverse().join('\n');
     let fontsList = await fs.readFile(fontsDir + '/' + `ckb-${i + 1}.fontslist.txt`, 'utf-8');
     batch.totalFontsCount = fontsList.split('\n').filter(l => l.length > 0).length
 
