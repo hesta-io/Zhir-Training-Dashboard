@@ -1,23 +1,26 @@
-var express = require('express');
-var numeral = require('numeral');
-var readLastLines = require('read-last-lines');
-var router = express.Router();
+const express = require('express');
+const numeral = require('numeral');
+const readLastLines = require('read-last-lines');
+const fs = require('fs').promises;
+const router = express.Router();
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
 
   const logsDir = process.env.LOGS_PATH;
+  const fontsDir = process.env.FONTS_LIST_PATH;
   const progress_regex = /LINES PROCESSED: (\d+)? of font # (\d+)?/;
   const font_regex = /gt\/ckb-200\/(.*)?\//
   const totalNumberOfLines = 45917;
 
   let batches = [];
-  const batchCount = 8;
+  const batchesCount = process.env.BATCHES_COUNT;
 
-  for (let i = 0; i < batchCount; i++) {
-    let batch = { id: i, name: `Batch ${i + 1}`, file: `${i + 1}.log` };
-    let filePath = logsDir + '/' + batch.file;
-    batch.logs = await readLastLines.read(filePath, 50);
+  for (let i = 0; i < batchesCount; i++) {
+    let batch = { id: i, name: `Batch ${i + 1}` };
+    batch.logs = await readLastLines.read(logsDir + '/' + `${i + 1}.log`, 50);
+    let fontsList = await fs.readFile(fontsDir + '/' + `ckb-${i + 1}.fontslist.txt`, 'utf-8');
+    batch.totalFontsCount = fontsList.split('\n').filter(l => l.length > 0).length
 
     let match = progress_regex.exec(batch.logs);
     if (match)

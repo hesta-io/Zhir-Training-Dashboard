@@ -6,13 +6,13 @@
   <body>
     <% include ./partials/header %>
     <div class="container">
-        <table class="table table-sm">
-          <thead>
+        <table class="table table-sm table-bordered table-hover" style="text-align: center;">
+          <thead class="thead-dark">
             <tr>
               <th scope="col">Name</td>
               <th scope="col">Fonts Completed</td>
               <th scope="col">Current Font</td>
-              <th scope="col" colspan="2">Current Progress</td>
+              <th scope="col" colspan="2" >Current Progress</td>
               <th scope="col"></td>
             </tr>
           </thead>
@@ -21,7 +21,7 @@
             <% for (let batch of batches) { %>
               <tr>
                 <td><%= batch.name %></td>
-                <td><%= batch.currentFontCount - 1 %></td>
+                <td><%= batch.currentFontCount - 1 %> of <%= batch.totalFontsCount %> </td>
                 <td><%= batch.currentFont %></td>
                 <td><%= batch.linesProcessed %></td>
                 <td><%= batch.progress.toFixed(1) %>%</td>
@@ -33,7 +33,7 @@
 
         <% for (let batch of batches) { %>
           <div class="logs-container" id="logs-container-<%=batch.id%>" hidden>
-            <h4><%= batch.name %></h4>
+            <h5><%= batch.name %> Logs</h4>
             <pre style="background-color: #EBECE4; padding: 20px">
 <%= batch.logs %>
             </pre>
