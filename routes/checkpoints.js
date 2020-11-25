@@ -30,7 +30,7 @@ router.get('/', async function(req, res, next) {
     });
   }
 
-  checkpoints.sort((c1, c2) => c1.date.getTime() - c2.date.getTime());
+  checkpoints.sort((c1, c2) => c2.date.getTime() - c1.date.getTime());
 
   res.render('checkpoints', { title: 'Checkpoints', siteTitle: 'My App', checkpoints: checkpoints, moment: moment});
 });
