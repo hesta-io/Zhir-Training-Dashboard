@@ -3,6 +3,7 @@ const path = require('path');
 const moment = require('moment');
 var express = require('express');
 const router = express.Router();
+const numeral = require('numeral');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -26,7 +27,7 @@ router.get('/', async function(req, res, next) {
         date: stat.ctime,
         name: name,
         errorRate: parts[0],
-        iteration: parts[1]
+        iteration: numeral(parts[1]).format(',') 
     });
   }
 
