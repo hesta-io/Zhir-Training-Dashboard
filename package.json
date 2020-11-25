@@ -13,6 +13,7 @@
     "ejs": "~2.3.3",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
+    "moment": "^2.29.1",
     "morgan": "^1.10.0",
     "numeral": "^2.0.6",
     "read-last-lines": "^1.7.2",

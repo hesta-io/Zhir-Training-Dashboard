@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <% include ./partials/header %>
+    <div class="container">
+        <table class="table table-sm table-bordered table-hover" style="text-align: center;">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</td>
+              <th scope="col">Date</td>
+              <th scope="col">Char Error Rate</td>
+              <th scope="col">Iteration</td>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% for (let checkpoint of checkpoints) { %>
+              <tr>
+                <td><%= checkpoint.name %></td>
+                <td><%= moment(checkpoint.date).format('YYYY-MM-DD hh:mm A') %> </td>
+                <td><%= checkpoint.errorRate %></td>
+                <td><%= checkpoint.iteration %></td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+    </div><!-- /.container -->
+  </body>
+ </html>
