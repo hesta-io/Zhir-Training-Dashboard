@@ -11,7 +11,7 @@ router.get('/', async function(req, res, next) {
   const fontsDir = process.env.FONTS_LIST_PATH;
   const progress_regex = /LINES PROCESSED: (\d+)? of font # (\d+)?/;
   const font_regex = /gt\/ckb-200\/(.*)?\//
-  const totalNumberOfLines = 45917;
+  const totalNumberOfLines = process.env.NUMBER_OF_LINES;
 
   let batches = [];
   const batchesCount = process.env.BATCHES_COUNT;
